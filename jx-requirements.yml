@@ -1,39 +1,85 @@
 autoUpdate:
   enabled: false
   schedule: ""
+bootConfigURL: https://github.com/cloudbees/cloudbees-jenkins-x-boot-config.git
 cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  environmentGitPublic: true
-  project: ""
   azure: {}
+  clusterName: rom-cjxd-11-3
+  devEnvApprovers:
+  - romainverduci
+  environmentGitOwner: core-platform-test-org
+  environmentGitPublic: true
+  gitKind: github
+  gitName: github
+  gitServer: https://github.com
+  namespace: jx
+  project: apps-dev-229310
   provider: gke
-  zone: ""
-gitops: true
+  registry: gcr.io
+  zone: europe-west1-c
 environments:
-  - key: dev
-  - key: staging
-  - key: production
+- ingress:
+    cloud_dns_secret_name: external-dns-gcp-sa
+    domain: rom-cjxd11.jenkins-x.rocks
+    externalDNS: true
+    namespaceSubDomain: -jx.
+    tls:
+      email: rverduci@cloudbees.com
+      enabled: true
+      production: true
+  key: dev
+  repository: environment-rom-cjxd-11-3-dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: staging
+  repository: environment-rom-cjxd-11-3-staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: production
+  repository: environment-rom-cjxd-11-3-production
+gitops: true
 ingress:
-  domain: ""
-  externalDNS: false
+  cloud_dns_secret_name: external-dns-gcp-sa
+  domain: rom-cjxd11.jenkins-x.rocks
+  externalDNS: true
+  namespaceSubDomain: -jx.
   tls:
-    email: ""
-    enabled: false
-    production: false
+    email: rverduci@cloudbees.com
+    enabled: true
+    production: true
 kaniko: true
+repository: nexus
 secretStorage: vault
 storage:
+  backup:
+    enabled: false
+    url: ""
   logs:
     enabled: true
-    url: ""
+    url: gs://rom-cjxd-11-3-logs-7a25e0b2-ded2-4615-a7d4-2ebcfeef30a3
   reports:
     enabled: true
-    url: ""
+    url: gs://rom-cjxd-11-3-reports-4862cd8e-e632-4c55-b0e0-8a070ea0f
   repository:
     enabled: true
-    url: ""
+    url: gs://rom-cjxd-11-3-repository-1dc5697b-f0ff-4f08-926a-7ee91b
+vault: {}
+velero:
+  schedule: ""
+  ttl: ""
 versionStream:
-  ref: 2.1.76+cjxd.11
+  ref: 2.1.75+cjxd.11
   url: https://github.com/cloudbees/cloudbees-jenkins-x-versions.git
 webhook: lighthouse
