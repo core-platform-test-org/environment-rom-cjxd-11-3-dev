@@ -1,0 +1,8 @@
+jxui:
+  enableTLS: true
+  ingress:
+    create: true
+    domain: rom-cjxd11.jenkins-x.rocks
+    subdomain: dashboard
+  sso:
+    create: false
